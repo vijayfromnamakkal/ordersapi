@@ -18,9 +18,15 @@ public class CreateOrderLambda {
 	private final DynamoDB dynamoDB = new DynamoDB(AmazonDynamoDBClientBuilder.defaultClient());
 	
 	public APIGatewayProxyResponseEvent createOrder(APIGatewayProxyRequestEvent request)
-			throws JsonMappingException, JsonProcessingException {
-		
-		Order order = objectMapper.readValue(request.getBody(), Order.class);
+			  {
+	
+		Order order = null;
+		try {
+			order = objectMapper.readValue(request.getBody(), Order.class);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		
 		Table table = dynamoDB.getTable(System.getenv("ORDERS_TABLE"));

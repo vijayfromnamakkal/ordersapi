@@ -35,7 +35,13 @@ public class CreateOrderLambda {
 				.withString("itemName", order.itemName)
 				.withInt("quantity", order.quantity);
 		System.out.println("Before putting items to table");
-		table.putItem(item);
+		
+		try {
+			table.putItem(item);
+		}catch(Exception e) {
+			System.out.println("Error on inserting to table");
+			e.printStackTrace();
+		}
 		System.out.println("After putting items to table");
 		return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody("Order ID:" + order.id);
 

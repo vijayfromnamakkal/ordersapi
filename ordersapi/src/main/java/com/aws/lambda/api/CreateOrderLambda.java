@@ -23,12 +23,12 @@ public class CreateOrderLambda {
 		Order order = objectMapper.readValue(request.getBody(), Order.class);
 
 		
-//		Table table = dynamoDB.getTable(System.getenv("ORDERS_TABLE"));
-//		Item item = new Item().withPrimaryKey("id", order.id)
-//				.withString("itemName", order.itemName)
-//				.withInt("quantity", order.quantity);
-//		table.putItem(item);
-//		
+		Table table = dynamoDB.getTable(System.getenv("ORDERS_TABLE"));
+		Item item = new Item().withPrimaryKey("id", order.id)
+				.withString("itemName", order.itemName)
+				.withInt("quantity", order.quantity);
+		table.putItem(item);
+		
 		return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody("Order ID:" + order.id);
 
 	}

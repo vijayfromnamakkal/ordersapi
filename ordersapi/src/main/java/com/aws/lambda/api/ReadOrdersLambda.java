@@ -21,14 +21,14 @@ public class ReadOrdersLambda {
 
 	public APIGatewayProxyResponseEvent getOrders(APIGatewayProxyRequestEvent request)
 			throws JsonMappingException, JsonProcessingException {
-		Order order = new Order(123, "Mac Book pro", 100);
-//		ScanResult scanResult = dynamoDB.scan(new ScanRequest().withTableName(System.getenv("ORDERS_TABLE")));
-//		List<Order> orders = scanResult
-//				.getItems().stream().map(item -> new Order(Integer.parseInt(item.get("id").getN()),
-//						item.get("itemName").getS(), Integer.parseInt(item.get("quantity").getN())))
-//				.collect(Collectors.toList());
-//
-		String jsonOutput = objectMapper.writeValueAsString(order);
+		Order order = new Order();
+		ScanResult scanResult = dynamoDB.scan(new ScanRequest().withTableName(System.getenv("ORDERS_TABLE")));
+		List<Order> orders = scanResult
+				.getItems().stream().map(item -> new Order(Integer.parseInt(item.get("id").getN()),
+						item.get("itemName").getS(), Integer.parseInt(item.get("quantity").getN())))
+				.collect(Collectors.toList());
+
+		String jsonOutput = objectMapper.writeValueAsString(orders);
 		return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody(jsonOutput);
 
 	}

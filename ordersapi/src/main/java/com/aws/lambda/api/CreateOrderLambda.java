@@ -19,6 +19,7 @@ public class CreateOrderLambda {
 	
 	public APIGatewayProxyResponseEvent createOrder(APIGatewayProxyRequestEvent request)
 			  {
+		System.out.println(">>>>>>> CreateOrderLambda.createOrder>>>>>>>> ");
 	
 		Order order = null;
 		try {

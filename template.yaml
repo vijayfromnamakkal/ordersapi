@@ -29,8 +29,8 @@ Resources:
       CodeUri: ordersapi
       Handler: com.aws.lambda.api.CreateOrderLambda::createOrder
       Policies:
-        - AmazonDynamoDBFullAccess
-               
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable      
       Events:
         OrderEvent:
           Type: Api
@@ -44,8 +44,8 @@ Resources:
       CodeUri: ordersapi
       Handler: com.aws.lambda.api.ReadOrdersLambda::getOrders
       Policies:
-        - AmazonDynamoDBFullAccess
-               
+        - DynamoDBReadPolicy:
+            TableName: !Ref OrdersTable      
       Events:
         OrderEvents:
           Type: Api

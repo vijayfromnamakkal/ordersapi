@@ -11,9 +11,7 @@ Globals:
       Runtime: java8
       MemorySize: 256
       Timeout: 3
-      Environment:
-        Variables:
-          ORDERS_TABLE: !Ref OrdersTable
+      
 
 
 Resources:

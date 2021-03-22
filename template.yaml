@@ -5,14 +5,23 @@ Description: >
 
   Sample SAM Template for ordersapi
 
+ 
+Globals:
+  Function:
+      Runtime: java8
+      MemorySize: 256
+      Timeout: 3
+      Environment:
+        Variables:
+          ORDERS_TABLE: !Ref OrdersTable
+
+
 Resources:
   CreateOrderFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: ordersapi
-      Handler: com.aws.lambda.api.CreateOrderLambda::createOrder
-      Runtime: java8
-      MemorySize: 512
+      Handler: com.aws.lambda.api.CreateOrderLambda::createOrder      
       Events:
         OrderEvent:
           Type: Api
@@ -24,9 +33,7 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: ordersapi
-      Handler: com.aws.lambda.api.ReadOrdersLambda::getOrders
-      Runtime: java8
-      MemorySize: 512
+      Handler: com.aws.lambda.api.ReadOrdersLambda::getOrders      
       Events:
         OrderEvents:
           Type: Api

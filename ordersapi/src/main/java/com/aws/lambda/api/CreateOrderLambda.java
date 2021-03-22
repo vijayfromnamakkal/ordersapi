@@ -17,7 +17,7 @@ public class CreateOrderLambda {
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	private final DynamoDB dynamoDB = new DynamoDB(AmazonDynamoDBClientBuilder.defaultClient());
 	
-	public APIGatewayProxyResponseEvent createOrder(APIGatewayProxyRequestEvent request)
+	public APIGatewayProxyResponseEvent createOrder(APIGatewayProxyRequestEvent request) throws JsonProcessingException
 			  {
 		System.out.println(">>>>>>> CreateOrderLambda.createOrder>>>>>>>> ");
 	
@@ -25,8 +25,8 @@ public class CreateOrderLambda {
 		try {
 			order = objectMapper.readValue(request.getBody(), Order.class);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(">>>>>>> Error on parsing data  ");
+			throw e; 
 		}
 
 		

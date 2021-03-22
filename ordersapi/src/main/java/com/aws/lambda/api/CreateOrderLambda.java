@@ -28,14 +28,15 @@ public class CreateOrderLambda {
 			System.out.println(">>>>>>> Error on parsing data  ");
 			throw e; 
 		}
-
+		System.out.println(">>>>>>> Order created in object>>>>>>>> "+System.getenv("ORDERS_TABLE"));
 		
 		Table table = dynamoDB.getTable(System.getenv("ORDERS_TABLE"));
 		Item item = new Item().withPrimaryKey("id", order.id)
 				.withString("itemName", order.itemName)
 				.withInt("quantity", order.quantity);
+		System.out.println("Before putting items to table");
 		table.putItem(item);
-		
+		System.out.println("After putting items to table");
 		return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody("Order ID:" + order.id);
 
 	}
